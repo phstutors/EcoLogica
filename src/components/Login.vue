@@ -14,22 +14,23 @@
     <!-- Right side of the page-->
     <div class="right-side">
     <img src="/public/C.png">
-    <p>Por favor, insira seus <br/>dados para se cadastrar</p>
+    <p>Por favor, insira seus <br/>dados para Acessar</p>
     <div id="inputs-group">
         <div class="mb-3 row">
           <div class="col-sm-10">
               <label for="staticEmail">Digite seu Email:</label>
-              <input type="text" class="form-control" id="staticEmail" placeholder="email@example.com" v-bind:class="{ error: !emailValid }" v-model="email" @input="checkEmail">
+              <input type="text" v-model="email" class="form-control" id="staticEmail" placeholder="email@example.com">
           </div>
         </div>
         <div class="mb-3 row">
           <div class="col-sm-10">
           <label for="staticPassword">Digite sua Senha:</label>
-          <input type="password" class="form-control" id="inputPassword" placeholder="********">
+          <input type="password" v-model="senha" class="form-control" id="inputPassword" placeholder="********">
         </div>
         
       </div>
-      <button type="button" class="btn btn-primary btn-lg">Entrar</button>
+      <button type="button" @click="logar()" class="btn btn-primary btn-lg">Entrar</button>
+      <p style="width: 100%; text-align: right;">Ainda não fez seu primeiro acesso? <a @click="cadastrar()">Clique Aqui!</a></p>
     </div>
     </div>
   
@@ -187,27 +188,24 @@ export default {
     return {
       email: "",
       senha: "",
-      emailValid: true,
     };
   },
   methods: {
      logar() {
-    
+      const valor1 = this.email;
+      const valor2 = this.senha;
+      if (valor1 == "admin@gmail.com" && valor2 == "root") {
+        this.$router.push("/home");
+      } else {
+        alert("Você não tem acesso, tente se cadastrar!")
+      }
      
     },
-    cadastre() {
-      this.$router.push("cadastro");
+    cadastrar(){
+      this.$router.push("/cadastro")
     },
-    recuperar() {
-      return this.$router.push("/email");
-    },
-    checkEmail(){
-      if (!this.email.endsWith('discente.ifpe.edu.br')) {
-        this.emailIsValid = false;
-      } else {
-        this.emailIsValid = true;
-      }
-    }
+
+
   },
 };
 </script>
